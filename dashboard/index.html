@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<a class="skip" href="#board">Skip to the board</a>
+<header class="top">
+  <div class="brand"><span class="dot" aria-hidden="true"></span><span class="brand-name">TOKEN RADAR</span></div>
+  <p class="top-note" id="top-note">Loading the sealed snapshot…</p>
+</header>
+<main class="shell" id="board" tabindex="-1">
+  <section class="hero">
+    <div>
+      <h1>Which pre-token protocol is worth farming next?</h1>
+      <p class="lede">Every protocol DefiLlama tracks, ranked by what its token launch would be worth if its record stayed as it is. A protocol is listed here when its record shows <strong>no token</strong> — never as proof it has none. Implied value is this entry's own claim, computed from the snapshot's own figures; the formula is stated below the board, with each row's own numbers.</p>
+    </div>
+    <dl class="stats" id="stats"></dl>
+  </section>
+  <section class="controls" aria-label="Board controls">
+    <div class="field"><label for="q">Search name or slug</label><input id="q" type="search" placeholder="e.g. gauntlet" autocomplete="off"></div>
+    <div class="field"><label for="cat">Category</label><select id="cat"><option value="">All categories</option></select></div>
+    <div class="field"><label for="chain">Chain</label><select id="chain"><option value="">All chains</option></select></div>
+    <div class="field"><label for="set">Set</label><select id="set"><option value="">Whole board</option><option value="watchlist">Watchlist only</option><option value="early">Early finds only</option></select></div>
+    <div class="field"><label for="sort">Sort by</label><select id="sort"><option value="value">Implied value</option><option value="tvl">TVL</option><option value="growth">7-day growth</option><option value="age">Age, oldest first</option></select></div>
+    <div class="tabs" role="group" aria-label="Board or live tokens"><button id="tab-board" type="button" aria-pressed="true">Pre-token board</button><button id="tab-live" type="button" aria-pressed="false">Live tokens</button></div>
+    <p class="count" id="count" aria-live="polite"></p>
+  </section>
+  <section class="panel">
+    <div class="table-wrap"><table id="table">
+      <thead><tr>
+        <th scope="col"><button type="button" data-sort="rank">#</button></th>
+        <th scope="col">Protocol</th>
+        <th scope="col"><button type="button" data-sort="tvl">TVL</button></th>
+        <th scope="col"><button type="button" data-sort="growth">7d</button></th>
+        <th scope="col"><button type="button" data-sort="age">Age</button></th>
+        <th scope="col"><button type="button" data-sort="value">Implied value</button></th>
+        <th scope="col">Farm plan</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <p class="empty" id="empty" hidden>No protocol matches this filter. Clear the search or pick another category.</p>
+  </section>
+  <section class="model panel" id="model">
+    <h2>How the implied value is computed</h2>
+    <p class="formula" id="formula"></p>
+    <p>Each category's ratio is the median market-cap-to-TVL ratio of the snapshot's protocols in that category whose token already trades — the market's own answer to what a protocol of that kind is worth per dollar of TVL. A category with fewer than three traded tokens falls back to the global median. Growth is the protocol's own 7-day TVL change, clamped to −50%…+100%. Maturity rewards a long record with no token: a protocol listed three years ago scores higher than one listed last month. No protocol name is ever special-cased.</p>
+    <p class="warn">Read it as a radar, not a promise: the snapshot does not say whether or when a token is issued, and farming costs real gas. Never pay anyone to claim for you — a real claim costs nothing but gas.</p>
+  </section>
+  <section class="panel live" id="live-panel" hidden>
+    <h2>Live tokens — already trading, shown apart</h2>
+    <p>These protocols already have a token, so the board does not rank them. Their values below are the market's own market caps from the snapshot, not this entry's model.</p>
+    <div class="table-wrap"><table><thead><tr><th scope="col">Protocol</th><th scope="col">TVL</th><th scope="col">Market cap</th><th scope="col">7d</th></tr></thead><tbody id="live-rows"></tbody></table></div>
+  </section>
+</main>
+<dialog class="detail" id="detail" aria-labelledby="detail-title"></dialog>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
